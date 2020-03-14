@@ -1,7 +1,10 @@
 # ride-faucet
 Faucet smart contract for Acryl testnet made using RIDE
 
-## Get tokens
+### Acryl testnet
+https://nodestestnet.acrylplatform.com/
+
+### Get tokens
 Send Invoke script transaction
 
 ```json
