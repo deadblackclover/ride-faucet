@@ -1,0 +1,24 @@
+{-# STDLIB_VERSION 3 #-}
+{-# CONTENT_TYPE DAPP #-}
+{-# SCRIPT_TYPE ACCOUNT #-}
+
+let owner = base58'6JJbegsAC5zYcvJFimnCT641qeHKWkkhLLm91C15ufkx'
+
+@Callable(i)
+func faucet(addr: String) = {
+    TransferSet([ScriptTransfer(addressFromStringValue(addr), 10 * 100000000, unit)])
+}
+
+@Verifier(tx)
+func verify() = {
+    match tx {
+        case t: InvokeScriptTransaction =>
+            if (t.senderPublicKey == owner)
+            then
+                true
+            else
+                false
+        case t: SetScriptTransaction => sigVerify(tx.bodyBytes, tx.proofs[0], owner)
+        case _ => false
+    }
+}
